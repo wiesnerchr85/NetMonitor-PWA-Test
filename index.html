@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#003d6b">
+  <meta name="description" content="Offline-Kompatibilitätstest für Richtfunkplaner-Technik">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Richtfunkplaner – Offline-Test</title>
+</head>
+<body>
+  <main class="layout">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">THW / NetMonitor.Web – technischer Proof of Concept</p>
+        <h1>Richtfunkplaner – Offline-Test</h1>
+        <p class="lede">Testet Cache Storage, Service Worker und lokale Streckendaten ohne externe Abhängigkeiten.</p>
+      </div>
+      <div id="connectionState" class="connection-state" role="status" aria-live="polite">PRÜFE VERBINDUNG …</div>
+    </header>
+
+    <section class="card route-card" aria-labelledby="route-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Lokale Testdaten</p>
+          <h2 id="route-heading">Simulierte Funkstrecke</h2>
+        </div>
+        <p id="saveState" class="hint" aria-live="polite">Noch nicht lokal gespeichert.</p>
+      </div>
+      <form id="routeForm">
+        <div class="form-grid">
+          <label>Streckenname<input id="routeName" name="routeName" required value="OV Musterstadt - Einsatzstelle Nord"></label>
+          <label>Entfernung (km)<input id="distance" name="distance" type="number" min="0" step="0.1" required value="12.4"></label>
+          <label>Standort A<input id="siteA" name="siteA" required value="THW OV Musterstadt"></label>
+          <label>Soll-Azimut (°)<input id="azimuth" name="azimuth" type="number" min="0" max="360" step="0.1" required value="47.5"></label>
+          <label>Standort B<input id="siteB" name="siteB" required value="Einsatzstelle Nord"></label>
+          <label>Soll-Elevation (°)<input id="elevation" name="elevation" type="number" min="-90" max="90" step="0.1" required value="1.8"></label>
+        </div>
+        <div class="actions">
+          <button class="primary" type="submit">Lokal speichern</button>
+          <button class="secondary" id="deleteData" type="button">Lokale Testdaten löschen</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card" aria-labelledby="compatibility-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Diagnose</p>
+          <h2 id="compatibility-heading">Kompatibilität</h2>
+        </div>
+        <button id="refreshDiagnostics" class="text-button" type="button">Status aktualisieren</button>
+      </div>
+      <dl class="diagnostics" id="diagnostics" aria-live="polite"></dl>
+      <p class="fine-print">Diese Seite erfasst keine Gerätekennungen und kommuniziert mit keinem externen Dienst.</p>
+    </section>
+
+    <section class="test-note" aria-label="Ablauf für Offline-Test">
+      <strong>Offline-Test:</strong> Online öffnen → Daten lokal speichern → App/Browser schließen → WLAN ausschalten → erneut öffnen.
+    </section>
+  </main>
+  <noscript>Für diesen Offline-Test muss JavaScript aktiviert sein.</noscript>
+  <script src="./app.js" defer></script>
+</body>
+</html>
